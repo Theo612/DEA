@@ -1,7 +1,3 @@
-# %% [markdown]
-# Générateur distribution gaussienne/distribution de clusters
-
-# %%
 import numpy as np
 import pandas as pd
 import os
@@ -9,7 +5,6 @@ import itertools
 from sklearn.datasets import make_blobs
 from sklearn.preprocessing import MinMaxScaler
 
-# %%
 def generation_donnees(nb_echantillons, ecart_type, nb_centres, nb_caracteristiques, graine_aleatoire):
     """Génère des données synthétiques normalisées avec une distribution de clusters
     ou une distribution gaussienne (en fixant le nombre de centres à 1).
@@ -31,7 +26,6 @@ def generation_donnees(nb_echantillons, ecart_type, nb_centres, nb_caracteristiq
     Xnorm = scaler.fit_transform(X) 
     return Xnorm, y
 
-# %%
 def noms_colonnes(nb_caracteristiques):
     """Définit les noms des colonnes pour le fichier CSV des données générées.
     Chaque colonne représente une caractéristique, et une colonne finale spécifie le cluster de chaque échantillon.
@@ -45,7 +39,6 @@ def noms_colonnes(nb_caracteristiques):
     colonnes_caracteristiques = [f'caracteristique_{i}' for i in range(1, nb_caracteristiques + 1)]
     return colonnes_caracteristiques + ['cluster']
 
-# %%
 def nom_fichier(dossiers_sortie, nb_echantillons, ecart_type, nb_centres, nb_caracteristiques, df, repetition):
     """Crée un fichier CSV contenant les données générées.
 
@@ -64,8 +57,6 @@ def nom_fichier(dossiers_sortie, nb_echantillons, ecart_type, nb_centres, nb_car
         chemin_fichier = os.path.join(dossiers_sortie[1], f"cluster_{nb_echantillons}_{ecart_type}_{nb_centres}_{nb_caracteristiques}_{repetition}.csv")
     df.to_csv(chemin_fichier, index=False)
 
-
-# %%
 def produit_cartesien(nb_echantillons, ecarts_types, nb_centres, nb_caracteristiques):
     """Retourne le produit cartésien des paramètres.
 
@@ -80,7 +71,6 @@ def produit_cartesien(nb_echantillons, ecarts_types, nb_centres, nb_caracteristi
     """
     return set(itertools.product(nb_echantillons, ecarts_types, nb_centres, nb_caracteristiques))
 
-# %%
 def test_parametres(nb_echantillons, ecarts_types, nb_centres, nb_caracteristiques, graine_aleatoire, dossiers_sortie, repetitions=5):
     """Génère les données pour toutes les combinaisons possibles de paramètres
     et les sauvegarde dans des fichiers CSV.
@@ -104,7 +94,6 @@ def test_parametres(nb_echantillons, ecarts_types, nb_centres, nb_caracteristiqu
             df = pd.DataFrame(donnees, columns=noms)
             nom_fichier(dossiers_sortie, echantillons, ecart, centres, caracteristiques, df, rep)
 
-# %%
 def generateur_gaussien_cluster(nb_echantillons=[i for i in range(100, 4001, 100)], 
                                 ecarts_types=[0.0, 0.5, 1.0], 
                                 nb_centres=[1, 4, 10], 
