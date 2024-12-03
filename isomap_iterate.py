@@ -1,5 +1,3 @@
-# isomap_iterate.py
-
 import os
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
@@ -63,18 +61,15 @@ def process_directory(input_dir, base_output_dir, n_neighbors_values, n_componen
 
 def process_multiple_dirs(input_dirs, base_output_dir, n_neighbors_values, n_components=2):
     """Traite plusieurs répertoires d'entrée (Gaussienne, Clusters, Uniforme) en appliquant Isomap sur chacun."""
-    # Créer le dossier de base pour les fichiers réduits
     if not os.path.exists(base_output_dir):
         os.makedirs(base_output_dir)
         print(f"Dossier principal '{base_output_dir}' créé.")
     
     for input_dir in input_dirs:
-        # Créer un sous-dossier pour chaque répertoire d'entrée spécifique (Gaussienne, Clusters, etc.)
         output_sub_dir = os.path.join(base_output_dir, os.path.basename(input_dir))
         
         if not os.path.exists(output_sub_dir):
             os.makedirs(output_sub_dir)
             print(f"Sous-dossier '{output_sub_dir}' créé.")
-
-        # Appliquer Isomap pour tous les fichiers du répertoire
+            
         process_directory(input_dir, output_sub_dir, n_neighbors_values, n_components)
