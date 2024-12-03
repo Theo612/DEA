@@ -1,14 +1,8 @@
-# %% [markdown]
-# Générateur données uniformes
-
-# %%
 import numpy as np
 import pandas as pd
 import os
 import itertools
 
-
-# %%
 def generation_donnees(borne_inf, borne_sup, taille):
     """Génère des données synthétiques normalisées avec une distribution uniforme.
 
@@ -23,8 +17,6 @@ def generation_donnees(borne_inf, borne_sup, taille):
     tableau_uniforme = np.random.uniform(low=borne_inf, high=borne_sup, size=taille)
     return tableau_uniforme
 
-
-# %%
 def noms_colonnes(nb_caracteristiques):
     """Définit les noms des colonnes pour le fichier CSV des données générées.
     
@@ -39,8 +31,6 @@ def noms_colonnes(nb_caracteristiques):
         colonnes_caracteristiques.append(f'caracteristique_{i}')
     return colonnes_caracteristiques
 
-
-# %%
 def nom_fichier(dossier_sortie, borne_inf, borne_sup, nb_echantillons, nb_caracteristiques, df, repetition):
     """Crée un fichier CSV contenant les données générées.
 
@@ -56,7 +46,6 @@ def nom_fichier(dossier_sortie, borne_inf, borne_sup, nb_echantillons, nb_caract
     chemin_fichier = os.path.join(dossier_sortie, f"uniforme_{borne_inf}_{borne_sup}_{nb_echantillons}_{nb_caracteristiques}_{repetition}.csv")
     df.to_csv(chemin_fichier, index=False)
 
-# %%
 def produit_cartesien(liste_echantillons, liste_caracteristiques):
     """Retourne le produit cartésien des tailles d'échantillons et des nombres de caractéristiques.
 
@@ -69,7 +58,6 @@ def produit_cartesien(liste_echantillons, liste_caracteristiques):
     """
     return set(itertools.product(liste_echantillons, liste_caracteristiques))
 
-# %%
 def test_parametres(borne_inf, borne_sup, liste_echantillons, liste_caracteristiques, dossier_sortie, repetitions=5):
     """Génère des données pour toutes les combinaisons possibles de paramètres et les sauvegarde dans des fichiers CSV.
 
@@ -91,7 +79,6 @@ def test_parametres(borne_inf, borne_sup, liste_echantillons, liste_caracteristi
             df = pd.DataFrame(donnees_uniformes, columns=noms)
             nom_fichier(dossier_sortie, borne_inf, borne_sup, nb_echantillons, nb_caracteristiques, df, rep)
 
-# %%
 def generateur_uniforme(borne_inf=0.0, borne_sup=1.0, 
                         liste_echantillons=[i for i in range(100, 4001, 100)], 
                         liste_caracteristiques=[2**j for j in range(2, 8)]):
@@ -109,7 +96,4 @@ def generateur_uniforme(borne_inf=0.0, borne_sup=1.0,
 
     test_parametres(borne_inf, borne_sup, liste_echantillons, liste_caracteristiques, dossier_sortie)
 
-# %%
 generateur_uniforme()
-
-
